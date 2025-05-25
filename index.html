@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" id="theme-provider">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskQuest</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // or 'media'
+      theme: {
+        extend: {
+          colors: {
+            // New Monochromatic Palette
+            background: {
+              DEFAULT: '#F7F7F7', // Off-white for light mode
+              dark: '#121212',    // Very dark gray for dark mode
+            },
+            surface: {
+              DEFAULT: '#FFFFFF', // White for cards/modals in light mode
+              dark: '#1E1E1E',    // Dark gray for cards/modals in dark mode
+            },
+            primary: { // Accent color - subtle blue
+              DEFAULT: '#0A84FF', // Apple's system blue
+              light: '#339DFF',
+              dark: '#0A78E8', 
+            },
+            secondary: { // Secondary accent or interactive elements - can be a lighter/darker shade of gray
+              DEFAULT: '#8A8A8E', // Medium Gray
+              light: '#AFAFAF',
+              dark: '#6B6B6B',
+            },
+            text: {
+              primary: '#1D1D1F', // Near-black for light mode text
+              'primary-dark': '#E5E5E7', // Light gray for dark mode text
+              secondary: '#6E6E73', // Medium gray for secondary text (light)
+              'secondary-dark': '#A0A0A5', // Lighter gray for secondary text (dark)
+              disabled: '#BCBCC0',
+              'disabled-dark': '#5E5E60',
+            },
+            border: {
+              DEFAULT: '#D1D1D6', // Light gray border (light)
+              dark: '#3A3A3C',    // Medium-dark gray border (dark)
+            },
+            success: { // For completion, etc.
+                DEFAULT: '#34C759', // Apple green
+                light: '#5DE27F',
+                dark: '#2CAB4F'
+            },
+            danger: {
+                DEFAULT: '#FF3B30', // Apple red
+                light: '#FF635C',
+                dark: '#E82C23'
+            },
+            warning: { // For priority, can be amber/orange
+                DEFAULT: '#FF9500', // Apple orange
+                light: '#FFB03B',
+                dark: '#E88700'
+            }
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.3s ease-out',
+            'slide-in-up': 'slideInUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+            'subtle-pulse': 'subtlePulse 2.5s infinite ease-in-out',
+            'confetti-pop': 'confettiPop 0.6s ease-out forwards',
+            'scale-in': 'scaleIn 0.3s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideInUp: {
+              '0%': { transform: 'translateY(30px)', opacity: '0'},
+              '100%': { transform: 'translateY(0)', opacity: '1'},
+            },
+            subtlePulse: {
+              '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
+              '50%': { transform: 'scale(1.03)', opacity: '1' },
+            },
+            confettiPop: {
+                '0%': { transform: 'scale(0.3) rotate(-15deg)', opacity: '0' },
+                '50%': { transform: 'scale(1.1) rotate(5deg)', opacity: '1'},
+                '100%': { transform: 'scale(1) rotate(0deg)', opacity: '1' },
+            },
+            scaleIn: {
+                '0%': { transform: 'scale(0.9)', opacity: '0' },
+                '100%': { transform: 'scale(1)', opacity: '1' },
+            }
+          },
+          boxShadow: {
+            'subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.03)',
+            'subtle-md': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+            'subtle-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03)',
+            'interactive': '0 0 0 3px rgba(0, 122, 255, 0.3)', // For focus rings, using primary color
+          },
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: tailwind.theme.colors.background.DEFAULT; /* Updated */
+      color: tailwind.theme.colors.text.primary; /* Updated */
+    }
+    .dark body {
+      background-color: tailwind.theme.colors.background.dark; /* Updated */
+      color: tailwind.theme.colors.text['primary-dark']; /* Updated */
+    }
+    .task-completed {
+      /* text-decoration: line-through; */ /* Handled by class on title */
+      /* opacity: 0.7; */ /* Handled by text color changes */
+    }
+    .priority-high { border-left-color: tailwind.theme.colors.danger.DEFAULT !important; } 
+    .priority-medium { border-left-color: tailwind.theme.colors.warning.DEFAULT !important; }
+    .priority-low { border-left-color: tailwind.theme.colors.success.DEFAULT !important; }
+
+    /* Custom scrollbar for webkit browsers */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: tailwind.theme.colors.text.disabled; 
+      border-radius: 10px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: tailwind.theme.colors.text['disabled-dark'];
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: tailwind.theme.colors.secondary.DEFAULT;
+    }
+    .dark ::-webkit-scrollbar-thumb:hover {
+      background: tailwind.theme.colors.secondary.dark;
+    }
+
+    /* Input focus styling for non-Tailwind parts if any, or to ensure consistency */
+    input:focus, select:focus, textarea:focus {
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3); /* Softer focus similar to Apple */
+    }
+    
+    /* Smooth font rendering */
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.0.1"
+  }
+}
+</script>
+</head>
+<body class="bg-background dark:bg-background-dark text-text-primary dark:text-text-primary-dark min-h-screen transition-colors duration-300">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html><link rel="stylesheet" href="index.css">
+<script src="index.tsx" type="module"></script>

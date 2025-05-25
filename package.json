@@ -1,0 +1,30 @@
+
+{
+  "name": "taskquest",
+  "version": "1.0.0",
+  "description": "TaskQuest: Premium Gamified To-Do List with AI-powered features.",
+  "scripts": {
+    "start": "echo \"To run TaskQuest, open index.html in your browser or use a simple HTTP server. See README.md for details.\"",
+    "serve": "http-server . -o"
+  },
+  "keywords": [
+    "todo",
+    "task management",
+    "gamification",
+    "react",
+    "tailwindcss",
+    "gemini-api",
+    "productivity"
+  ],
+  "author": "Your Name / Your GitHub Username",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "comments_dependencies": {
+    "note": "Core dependencies (React, @google/genai) are loaded via CDN using importmaps in index.html. This section is for conceptual listing or if a build system is added.",
+    "react": "^19.1.0",
+    "@google/genai": "^1.0.1",
+    "tailwindcss": "^3.x.x"
+  }
+}
