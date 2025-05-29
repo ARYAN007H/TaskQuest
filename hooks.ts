@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect, useCallback } from 'react';
 import { PomodoroSettings, PomodoroPhase } from './types';
 import { DEFAULT_POMODORO_SETTINGS } from './constants';
@@ -24,7 +22,7 @@ export function useLocalStorage<T,>(key: string, initialValue: T): [T, React.Dis
       console.error(`Error setting localStorage key "${key}":`, error);
     }
   };
-  
+
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === key && event.newValue) {
@@ -63,11 +61,11 @@ export function usePomodoro(initialSettings: PomodoroSettings = DEFAULT_POMODORO
 
     if (isActive && timeLeft > 0) {
       intervalId = setInterval(() => {
-        setTimeLeft(prevTime => prevTime - 1);
+        setTimeLeft((prevTime: number) => prevTime - 1);
       }, 1000);
     } else if (isActive && timeLeft === 0) {
       // End of phase
-      setIsActive(false); 
+      setIsActive(false);
       // TODO: Add notification sound here
       if (phase === PomodoroPhase.WORK) {
         const newCyclesCompleted = cyclesCompleted + 1;
@@ -92,7 +90,7 @@ export function usePomodoro(initialSettings: PomodoroSettings = DEFAULT_POMODORO
 
   const startTimer = useCallback(() => setIsActive(true), []);
   const pauseTimer = useCallback(() => setIsActive(false), []);
-  
+
   const resetTimer = useCallback(() => {
     setIsActive(false);
     setPhase(PomodoroPhase.WORK);
@@ -120,7 +118,7 @@ export function usePomodoro(initialSettings: PomodoroSettings = DEFAULT_POMODORO
 
 
   const updateSettings = (newSettings: Partial<PomodoroSettings>) => {
-    setSettings(prev => ({ ...prev, ...newSettings }));
+    setSettings((prev: PomodoroSettings) => ({ ...prev, ...newSettings }));
   };
 
   return {
